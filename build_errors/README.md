@@ -84,6 +84,7 @@ make gpu
 ```
 
 ### Issue 2:  undefined reference to 'ompi_mpi_comm_world'
+(vasp gpu undefined reference to `ompi_mpi_comm_world')
 After fixing the compiler version problem, make was continued upto the very last steps. It seems code was built successfuly upto the last step and the issue was related to the linking. The full error message reads as follows
 
 ``` bash
