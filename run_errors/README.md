@@ -1,4 +1,4 @@
-# Run errors and issues with CPU and GPU versions of VASP
+# Run errors and issues with running VASP
 
 After solving different problems, I finanlly built both CPU and GPU versions of vasp executables (See build_errors folder for more info). NVIDIA has a webpage for VASP GPU port in which it reports some benchmarks. I wanted to benchmark VASP CPU and GPU version on my machine for I downloaded VASP files used by NVIDIA (for details about my machines specifications refer to build_errors section). Here are the links to NVIDIA VASP webpage and repository containing VASP files:
 
@@ -23,7 +23,7 @@ source /opt/VASP/start_vasp.sh
 
 After setting everything and building POTCAR file (I used generatePOTCAR.sh file that comes with the examples), I did my first VASP run using the CPU version.
 
-## Issue 1: CPU version 'Fatal error in PMPI_Init'
+## Issue 1: 'Fatal error in PMPI_Init'
 My first try was quite disappointing. I faced an strange error at the first step while I hadn't tried the GPU version yet! The whole error message was
 
 ``` bash
@@ -53,3 +53,7 @@ mpirun -n 48 vasp_std
 ```
 
 You may see some warnings in vasp output when runing the CPU executable. This is mainly because INCAR files in the examples we downloaded are tunned for the GPU version of the VASP. These warnings don't affect the output and they basically tell you that you should do minimal changed in INCAR to enhance the CPU version performance. Some other warnings may be related to INCAR parameters. The warning messages are usually comprehenssive and clealy tell you how to revise the INCAR tags values.  
+
+## Issue 2: 'forrtl: severe (174): SIGSEGV, segmentation fault occurred'
+
+
