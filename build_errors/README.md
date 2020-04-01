@@ -46,7 +46,7 @@ At the time that I am writing this post, they do not offer a CUDA-GPU port of th
 source /opt/intel/bin/compilervars.sh intel64
 ```
 
-Note: Do not source the 
+Note: Do not source the psxevars.sh file at the parallel_studio_xe_[version] folder. This file is good for runtime but at the compile time it won't work and VASP make will end with an error complaining about not finding some mpi liberaries. 
 
 2. build all the CPU-version executables:
 
@@ -65,6 +65,23 @@ But it didn't work. This was the first error I faced in building and working wit
 ## VASP GPU port build errors 
 
 ### Issue 1: Intel Compiler Version
+The first error I got during building VASP GPU port was this:
+
+``` bash
+/usr/local/cuda//include/crt/host_config.h(110): error: #error directive: -- unsupported ICC configuration! Only ICC 15.0, ICC 16.0, ICC 17.0, ICC 18.0 and ICC 19.0 on Linux x86_64 are supported!
+  #error -- unsupported ICC configuration! Only ICC 15.0, ICC 16.0, ICC 17.0, ICC 18.0 and ICC 19.0 on Linux x86_64 are supported!
+   ^
+```
+
+This is prety self explanetory! My Intel compiler and CUDA are the latest versions available at the moment. CUDA is complaining about my icc version (which is 19.1) and says it is too new for it! From what I read in Internet, when CUDA gives you such as error, it really means it. So do not mess around with header files or anything else to surpass the error. Just do what it asks you to do: use older version of icc. Fortunately, For whatever reason I had the installation file for an older version of Intel Parallel Studio (2019-update4) on my machine. So, I built the older version at /opt/intel/2019-update4 and started over. To be consistent, I also rebuilt the CPU-versions with the new compiler:
+
+``` bash
+make veryclean
+rm bin/*
+source /opt/intel/2019-update4/bin/compilervars.sh intel64
+make all
+make gpu
+```
 
 
 
