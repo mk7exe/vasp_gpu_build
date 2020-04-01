@@ -46,6 +46,8 @@ At the time that I am writing this post, they do not offer a CUDA-GPU port of th
 source /opt/intel/bin/compilervars.sh intel64
 ```
 
+Note: Do not source the 
+
 2. build all the CPU-version executables:
 
 ``` bash
@@ -58,9 +60,12 @@ Note that VASP does not support parallel building. So, make sure not to add -j o
 make gpu
 ```
 
-But it didn't work. This was the first error I faced in building and working with the GPU version of VASP. From now on, I will mention issues in the order that I faced them duing building VASP.
+But it didn't work. This was the first error I faced in building and working with the GPU version of VASP. From now on, I will mention issues in the order that I faced them duing building VASP GPU port.
 
-## Issue 1: Intel Compiler Version
+## VASP GPU port build errors 
+
+### Issue 1: Intel Compiler Version
+
 
 
 
