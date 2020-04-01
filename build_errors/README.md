@@ -83,8 +83,48 @@ make all
 make gpu
 ```
 
+### Issue 2:  undefined reference to 'ompi_mpi_comm_world'
+After fixing the compiler version problem, make was continued upto the very last steps. It seems code was built successfuly upto the last step and the issue was related to the linking. The full error message reads as follows
 
+``` bash
+CUDA/lib/libCudaUtils_x86_64.a(cuda_main.cu.o): In function `cuda_init_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:43: undefined reference to `ompi_mpi_comm_world'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:44: undefined reference to `ompi_mpi_comm_world'
+CUDA/lib/libCudaUtils_x86_64.a(cuda_main.cu.o): In function `mpi_get_local_rank(int*, int*)':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:147: undefined reference to `ompi_mpi_comm_world'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:155: undefined reference to `ompi_mpi_char'
+CUDA/lib/libCudaUtils_x86_64.a(cuda_main.cu.o): In function `cuda_mpi_init_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:190: undefined reference to `ompi_mpi_comm_world'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:191: undefined reference to `ompi_mpi_comm_world'
+CUDA/lib/libCudaUtils_x86_64.a(cuda_main.cu.o): In function `mpi_get_local_rank(int*, int*)':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:147: undefined reference to `ompi_mpi_comm_world'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/cuda_main.cu:155: undefined reference to `ompi_mpi_char'
+CUDA/lib/libCudaUtils_x86_64.a(fock.cu.o): In function `setup_context_cu_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:884: undefined reference to `MPI_Comm_f2c'
+CUDA/lib/libCudaUtils_x86_64.a(fock.cu.o): In function `gather_waves_cu_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:1060: undefined reference to `ompi_mpi_double'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:1061: undefined reference to `ompi_mpi_double'
+CUDA/lib/libCudaUtils_x86_64.a(fock.cu.o): In function `gather_projectors_cu_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:1137: undefined reference to `ompi_mpi_double'
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:1137: undefined reference to `ompi_mpi_op_sum'
+CUDA/lib/libCudaUtils_x86_64.a(fock.cu.o): In function `gather_dproj_cu_C':
+/opt/VASP/vasp.6.1.0/build/gpu/CUDA/fock.cu:1184: undefined reference to `ompi_mpi_double'
+make[2]: *** [vasp] Error 1
+make[2]: Leaving directory `/opt/VASP/vasp.6.1.0/build/gpu'
+cp: cannot stat ‘vasp’: No such file or directory
+make[1]: *** [all] Error 1
+make[1]: Leaving directory `/opt/VASP/vasp.6.1.0/build/gpu'
+make: *** [gpu] Error 2
+```
+My first guess was that enviornmental parameters had not been set properly. I tried to set the mpi library path in LD_LIBRARY_PATH manually but it didn't solve the problem. After a lot of try and errors, I found the solution in the makefile.include file. I solved this by changing icc to mpiicc in the following line at the makefile.include file:
 
+``` bash
+# Original: NVCC       := $(CUDA_ROOT)/bin/nvcc -ccbin=icc
+# Editted:
+NVCC       := $(CUDA_ROOT)/bin/nvcc -ccbin=mpiicc
+```
+
+After editting the makefile.include file, I did 'make veryclean' first and 'make gpu' again. This time, VASP GPU version was built successfuly. 
 
 
 
