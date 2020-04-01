@@ -1,6 +1,6 @@
 # Building VASP with GPU port
 
-I had a hard time building VASP with its GPU port and making it work after installation. I am still doing try-and-error to enhance the performance of the GPU port. I will share my experience and struggles here in a hope to help those facing the same issues as I did. I understand that the issues and solutions I explain here are probably system specific. So, please pay attention to types and versions of software packages while you are reading this.
+I understand that the issues and solutions I explain here are probably system specific. So, please pay attention to types and versions of software packages while you are reading this.
 
 ## System specifications
 - CPUS: 2 x Intel(R) Xeon(R) Platinum 8160 CPU @ 2.10GHz
