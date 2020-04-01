@@ -52,4 +52,4 @@ and it did the trick! o I ran the simulation using the CPU version of the execut
 mpirun -n 48 vasp_std
 ```
 
-
+You may see some warnings in vasp output when runing the CPU executable. This is mainly because INCAR files in the examples we downloaded are tunned for the GPU version of the VASP. These warnings don't affect the output and they basically tell you that you should do minimal changed in INCAR to enhance the CPU version performance. Some other warnings may be related to INCAR parameters. The warning messages are usually comprehenssive and clealy tell you how to revise the INCAR tags values.  
