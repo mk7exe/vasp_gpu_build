@@ -1,0 +1,1 @@
+I had a hard time building VASP with its GPU port and making it work after installation. I am still doing try-and-error to enhance the performance of the GPU port. I will share my experience and struggles here in a hope to help those facing the same issues as I did.
