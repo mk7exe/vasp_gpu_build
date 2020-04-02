@@ -17,7 +17,7 @@ I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The 
 | ------------- | ------------- | ------------- |
 | 24	| 6	| 432.588 |
 | 48	| 6	| 357.81 |
-| 48 |	7 |	327.687 |
+| **48** |	**7** |	**327.687** |
 | 48 |	8 |	438.263 |
 | 72 |	6 |	392.069 |
 | 72 |	7 |	400.422 |
@@ -27,3 +27,5 @@ I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The 
 | 96 |	7 |	488.768 |
 | 96 |	8 |	477.251 |
 | 96 |	9	| 479.457 |
+
+The best performance was achieved with 48 cores and NCORE=7. According to VASP manual, $NCORE = # of cores / NPAR$ and $NPAR /approx /sqrt{# of cores}$
