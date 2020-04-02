@@ -28,6 +28,11 @@ I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The 
 | 96 |	8 |	477.251 |
 | 96 |	9	| 479.457 |
 
-The best performance was achieved with 48 cores and NCORE=7. According to VASP manual, ![](http://latex.codecogs.com/gif.latex?NCORE%20%3D%20core%20%5C%23/NPAR) and ![](http://latex.codecogs.com/gif.latex?NPAR%20%5Capprox%20%5Csqrt%7Bcore%5C%23%7D). Decline of the performance after 48 mpi ranks is normal as my machine has 48 (2x24) physical CPU cores and 2 threads per code. Now that I identified the best CPU performance, I wasn to see how much one Quadro GP100 is going to enhance or decline the performance.
+The best performance was achieved with 48 cores and NCORE=7. According to VASP manual, ![](http://latex.codecogs.com/gif.latex?NCORE%20%3D%20core%20%5C%23/NPAR) and ![](http://latex.codecogs.com/gif.latex?NPAR%20%5Capprox%20%5Csqrt%7Bcore%5C%23%7D). Decline of the performance after 48 mpi ranks is normal as my machine has 48 (2x24) physical cores and 96 logical cores are due to hyperthreading. It is generally accepted that VASP does not do good with hyperthreading. From my experience, most of the simulation codes performances decline with enabeling hyperthreading. I disabled thyperthreading to see its effect. The ideal way to disable hyperthreading is through BIOS. Since I work with this machine remotely and I don't have access to the BIOS, I disabled hyperthreading at runtime through the OS. I found a good and clean discription on how to do this in this page: https://www.golinuxhub.com/2018/01/how-to-disable-or-enable-hyper.html
+
+
+
+
+Now that I identified the best CPU performance, I wasn to see how much one Quadro GP100 is going to enhance or decline the performance.
 
 
