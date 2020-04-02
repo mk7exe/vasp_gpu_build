@@ -28,4 +28,4 @@ I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The 
 | 96 |	8 |	477.251 |
 | 96 |	9	| 479.457 |
 
-The best performance was achieved with 48 cores and NCORE=7. According to VASP manual, [](http://latex.codecogs.com/gif.latex?NCORE%20%3D%20core%20%5C%23/NPAR) and [](http://latex.codecogs.com/gif.latex?NPAR%20%5Capprox%20%5Csqrt%7Bcore%5C%23%7D). 
+The best performance was achieved with 48 cores and NCORE=7. According to VASP manual, ![](http://latex.codecogs.com/gif.latex?NCORE%20%3D%20core%20%5C%23/NPAR) and ![](http://latex.codecogs.com/gif.latex?NPAR%20%5Capprox%20%5Csqrt%7Bcore%5C%23%7D). 
