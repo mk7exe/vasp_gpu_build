@@ -31,6 +31,7 @@ The best performance was achieved by 48 cores and NCORE = 5. Turning hyperthread
 I only have one GPU in this machne so, most of the adjustments suggested by NVIDIA is not relevant to my case. I ran the gpu version of the vasp using 1 to 12 MPI ranks. I could not go higher because any higher number of MPI ranks gave me segmentation fault. I guess this is a memory error that can be avoided if I had more GPUs. Increasing the number of MPI ranks did not enhance the performance anyway, so I am not worried about that for now. Note that NCORE is always equal to 1 when using vasp_gpu.
 
 | MPI ranks | Elapsed time (s) |
+| ------------- | ------------- |
 | 1 | 327.187 |
 | 2 | 390.638 |
 | 3 | 413.490 |
