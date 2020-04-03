@@ -15,8 +15,7 @@ I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The 
 
 From my experience, most of the simulation codes performances decline with enabeling hyperthreading. I disabled thyperthreading to see its effect. The ideal way to disable hyperthreading is through BIOS. Since I work with this machine remotely and I don't have access to the BIOS, I disabled hyperthreading at runtime through the OS. I found a good and clean discription on how to do this in this page: https://www.golinuxhub.com/2018/01/how-to-disable-or-enable-hyper.html
 
-| # of cores | NCORE | Elapsed time (s) | Elapsed time (s) |
-|  |  | (HT ON) | (HT OFF) |
+| MPI ranks | NCORE | HP ON Elapsed time (s) | HP OFF Elapsed time (s) |
 | ------------- | ------------- | ------------- | ------------- |
 | 24	| 4	| 457.335 | 459.687 |
 | 24	| 5	| 362.902 | 362.912 |
@@ -29,5 +28,16 @@ From my experience, most of the simulation codes performances decline with enabe
 The best performance was achieved by 48 cores and NCORE = 5. Turning hyperthreading on and off did not have major effect on the performance. 
 
 ## GPU performance
-I only have one GPU in this machne so, most of the adjustments suggested by NVIDIA is not relevant to my case. I ran the gpu version of the vasp using 1 to 12 MPI ranks. I could not go higher because any higher number of MPI ranks gave me segmentation fault. I guess this is a memory error that can be avoided if I had more GPUs. Increasing the number of MPI ranks did not enhance the performance anyway, so I am not worried about that for now. 
+I only have one GPU in this machne so, most of the adjustments suggested by NVIDIA is not relevant to my case. I ran the gpu version of the vasp using 1 to 12 MPI ranks. I could not go higher because any higher number of MPI ranks gave me segmentation fault. I guess this is a memory error that can be avoided if I had more GPUs. Increasing the number of MPI ranks did not enhance the performance anyway, so I am not worried about that for now. Note that NCORE is always equal to 1 when using vasp_gpu.
+
+| MPI ranks | Elapsed time (s) |
+| 1 | 327.187 |
+| 2 | 390.638 |
+| 3 | 413.490 |
+| 4 | 465.434 |
+| 5 | 468.927 |
+| 6 | 454.476 |
+| 12 | 700.242 |
+
+The performance of the GPU version on a single CPU is comparable to the best CPU performance (48 cores). Obviously, increasing the number of MPI ranks no only does not enhance the elapsed time but make the performance to decline. 
 
