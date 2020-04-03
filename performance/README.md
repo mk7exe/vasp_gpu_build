@@ -10,7 +10,7 @@ Here I share my epxperience with benchmarking and tunning VASP performance. My s
 - CUDA: cuda 10.2.89_440.33.01
 - VASP: vasp 6.1.0
 
-## CPU version
+## CPU performance
 I made both CPU and GPU versions of VASP using the Intel compilers and mpi. The benchmark examples I used were those provided y NVIDIA in their benchmarks (https://www.nvidia.com/en-us/data-center/gpu-accelerated-applications/vasp/). To test the performance of the CPU version of VASP, I simulated the siHugeShort using different number of cores and different values for NCORE tag in the INCAR file. According to VASP manual, ![](http://latex.codecogs.com/gif.latex?NCORE%20%3D%20core%20%5C%23/NPAR) and ![](http://latex.codecogs.com/gif.latex?NPAR%20%5Capprox%20%5Csqrt%7Bcore%5C%23%7D). Note that my machine has two CPUs with 24 physical cores at each CPU (48 total). This increases to 96 with hyperthreading. It is well known that VASP does not do well with hyperthreading and if I icrease the number of MPI tasks to more than 48, the performance would decline (I actually tested this). So, I set the maximum of MPI tasks to 48. 
 
 From my experience, most of the simulation codes performances decline with enabeling hyperthreading. I disabled thyperthreading to see its effect. The ideal way to disable hyperthreading is through BIOS. Since I work with this machine remotely and I don't have access to the BIOS, I disabled hyperthreading at runtime through the OS. I found a good and clean discription on how to do this in this page: https://www.golinuxhub.com/2018/01/how-to-disable-or-enable-hyper.html
@@ -28,11 +28,6 @@ From my experience, most of the simulation codes performances decline with enabe
 
 The best performance was achieved by 48 cores and NCORE = 5. Turning hyperthreading on and off did not have major effect on the performance. 
 
-
-
-
-
-
-Now that I identified the best CPU performance, I wasn to see how much one Quadro GP100 is going to enhance or decline the performance.
-
+## GPU performance
+I only have one GPU in this machne so, most of the adjustments suggested by NVIDIA is not relevant to my case. I ran the gpu version of the vasp using 1 to 12 MPI ranks. I could not go higher because any higher number of MPI ranks gave me segmentation fault. I guess this is a memory error that can be avoided if I had more GPUs. Increasing the number of MPI ranks did not enhance the performance anyway, so I am not worried about that for now. 
 
