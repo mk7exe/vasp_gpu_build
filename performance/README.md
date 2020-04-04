@@ -17,15 +17,22 @@ From my experience, most of the simulation codes performances decline with enabl
 
 | MPI ranks | NCORE | HP ON Elapsed time (s) | HP OFF Elapsed time (s) |
 | ------------- | ------------- | ------------- | ------------- |
+| 24	| 1	| 457.335 | 459.687 |
+| 24	| 2	| 457.335 | 459.687 |
 | 24	| 4	| 457.335 | 459.687 |
-| 24	| 5	| 362.902 | 362.912 |
-| 24	| 6	| 427.872 | 459.687 |
+| 24	| 6	| 427.872 | 429.345 |
+| 24	| 8	| 427.872 | 429.345 |
 | 48	| 4	| 370.835 | 377.093 |
 | **48**	| **5**	| **324.228** | **331.350** |
 | 48	| 6	| 357.120 | 366.127 |
-| 48	| 7	| 335.949 | 328.042 |
 
-The best performance was achieved by 48 cores and NCORE = 5. Turning hyperthreading on and off did not have major effect on the performance. 
+The best performance was achieved by 48 cores and NCORE = 5. Turning hyperthreading on and off did not have major effect on the performance. These performances correspond to standard version of vasp (vasp_std) which is comparable with the GPU performance since GPU version does not have a gamma-only version. For this particular system which is a big supercell, we can use the gamma only version of the vasp (vasp_gamma) executable (because k-space is only sampled at the gamma point). I used the vasp_gam to simulate the same system, nd elapsed times for 48 mpi ranks are shown below.
+
+| NCORE | vasp_std | vasp_gam |
+| ------------- | ------------- | ------------- |
+| 4	| 370.835 | 243.845 |
+| **5**	| **324.228** | **241.597** |
+| 6	| 357.120 | 242.911 |
 
 ## GPU performance
 I only have one GPU in this machine so, most of the adjustments suggested by NVIDIA is not relevant to my case. I ran the gpu version of the vasp using 1 to 12 MPI ranks. I could not go higher because any higher number of MPI ranks gave me segmentation fault. I guess this is a memory error that can be avoided if I had more GPUs. Increasing the number of MPI ranks did not enhance the performance anyway, so I am not worried about that for now. Note that NCORE is always equal to 1 when using vasp_gpu.
